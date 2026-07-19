@@ -1,0 +1,25 @@
+# --- Web framework ---
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+python-multipart==0.0.20
+pydantic==2.11.4
+pydantic-settings==2.9.1
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+python-jose[cryptography]==3.3.0
+
+# --- Database (prepared for Phase 2, not yet configured) ---
+sqlalchemy==2.0.40
+psycopg[binary]==3.2.6
+alembic==1.15.2
+
+# --- AI / ML (prepared for Phase 3+, not yet used) ---
+torch==2.6.0
+torchvision==0.21.0
+grad-cam==1.5.5
+pillow==11.2.1
+numpy==2.2.5
+
+# --- Dev / test ---
+pytest==8.3.5
+httpx==0.28.1

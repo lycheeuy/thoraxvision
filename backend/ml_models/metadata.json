@@ -1,0 +1,43 @@
+{
+  "model_name": "ThoraxVision-DenseNet121-GWO",
+  "display_name": "ThoraxVision TB Detector",
+  "architecture": "DenseNet121",
+  "variant": "Pretrained ImageNet + GWO Hyperparameter Optimization",
+  "framework": "PyTorch",
+  "torchvision_weights_base": "DenseNet121_Weights.IMAGENET1K_V1",
+  "model_file": "final_gwo_model.pth",
+  "input_size": [
+    1,
+    3,
+    224,
+    224
+  ],
+  "classes": [
+    "NON_TBC",
+    "TUBERKULOSIS"
+  ],
+  "num_classes": 2,
+  "task": "binary_classification",
+  "domain": "medical_imaging",
+  "threshold": 0.45,
+  "threshold_target_class": 1,
+  "threshold_note": "Gunakan threshold pada probs[1] (TB). Turunkan untuk meningkatkan sensitivity.",
+  "classifier_head": {
+    "dense_units": 512,
+    "dropout_rate": 0.3197
+  },
+  "gradcam_target_layer": "model.features.denseblock4",
+  "performance": {
+    "test_accuracy": 0.7075,
+    "auc": 0.8286,
+    "sensitivity_tb": 0.6391,
+    "specificity_normal": 0.8381,
+    "f1_score_weighted": 0.7146
+  },
+  "version": "1.0.0",
+  "seed": 42,
+  "display_names": {
+    "NON_TBC": "Non Tuberculosis",
+    "TUBERKULOSIS": "Tuberculosis"
+  }
+}

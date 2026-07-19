@@ -1,0 +1,19 @@
+{
+  "inference": {
+    "description": "Val/Test transform - TANPA augmentasi",
+    "color_mode": "RGB",
+    "steps": [
+      { "order": 1, "name": "Resize", "params": { "size": [256, 256] } },
+      { "order": 2, "name": "CenterCrop", "params": { "size": 224 } },
+      { "order": 3, "name": "ToTensor", "params": {} },
+      {
+        "order": 4,
+        "name": "Normalize",
+        "params": {
+          "mean": [0.485, 0.456, 0.406],
+          "std": [0.229, 0.224, 0.225]
+        }
+      }
+    ]
+  }
+}
