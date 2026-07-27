@@ -2,46 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================================
+   ThoraxVision — Design tokens
+   Palette: slate (surfaces) · blue (primary) · cyan (AI accent)
+   Deliberately NO green anywhere: this is a diagnostic instrument, and the
+   "all clear" signal must never read as agricultural / generic-dashboard.
+   ========================================================================== */
+
 @layer base {
   :root {
+    /* Surfaces */
     --background: 210 40% 98%;
-    --foreground: 217 33% 12%;
+    --foreground: 222 47% 11%;
+
     --card: 0 0% 100%;
-    --card-foreground: 217 33% 12%;
-    --primary: 199 89% 38%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Brand */
+    --primary: 221 83% 53%;          /* blue-600 */
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 94%;
-    --secondary-foreground: 217 33% 17%;
-    --muted: 210 40% 94%;
-    --muted-foreground: 215 16% 42%;
-    --accent: 199 89% 92%;
-    --accent-foreground: 199 89% 24%;
-    --destructive: 0 72% 51%;
+    --accent-ai: 189 94% 43%;        /* cyan-500 — reserved for AI moments */
+    --accent-ai-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 214 95% 96%;
+    --accent-foreground: 221 83% 40%;
+
+    /* Diagnostics — rose = finding, blue = no finding (never green) */
+    --destructive: 350 84% 55%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214 32% 88%;
-    --input: 214 32% 88%;
-    --ring: 199 89% 38%;
-    --radius: 0.5rem;
+    --warning: 38 92% 50%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
+
+    --radius: 0.875rem;              /* xl by default */
   }
 
   .dark {
-    --background: 217 33% 8%;
+    --background: 222 47% 7%;
     --foreground: 210 40% 96%;
-    --card: 217 33% 11%;
+
+    --card: 222 44% 10%;
     --card-foreground: 210 40% 96%;
-    --primary: 199 89% 48%;
-    --primary-foreground: 217 33% 8%;
-    --secondary: 217 25% 16%;
+    --popover: 222 44% 11%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 8%;
+    --accent-ai: 187 92% 50%;
+    --accent-ai-foreground: 222 47% 8%;
+
+    --secondary: 217 33% 16%;
     --secondary-foreground: 210 40% 96%;
-    --muted: 217 25% 16%;
-    --muted-foreground: 215 16% 62%;
-    --accent: 199 60% 18%;
-    --accent-foreground: 199 89% 85%;
-    --destructive: 0 62% 45%;
-    --destructive-foreground: 210 40% 96%;
-    --border: 217 25% 18%;
-    --input: 217 25% 18%;
-    --ring: 199 89% 48%;
+    --muted: 217 33% 15%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 60% 18%;
+    --accent-foreground: 213 94% 78%;
+
+    --destructive: 350 80% 58%;
+    --destructive-foreground: 210 40% 98%;
+    --warning: 38 92% 55%;
+
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 217 91% 60%;
   }
 }
 
@@ -49,7 +80,75 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Premium typography: tight tracking on display sizes */
+  h1, h2, h3 {
+    @apply tracking-tight;
+  }
+
+  /* Slim, unobtrusive scrollbars */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-4 border-solid border-transparent bg-muted-foreground/25 bg-clip-content;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+}
+
+@layer components {
+  /* Glass surface — used sparingly: navbar, overlays on imagery */
+  .glass {
+    @apply border border-white/10 bg-background/70 backdrop-blur-xl backdrop-saturate-150;
+  }
+
+  /* Ambient page backdrop: soft radial blue/cyan light, no hard gradients */
+  .ambient-canvas {
+    background-image:
+      radial-gradient(60rem 30rem at 15% -10%, hsl(var(--primary) / 0.07), transparent 60%),
+      radial-gradient(45rem 25rem at 100% 0%, hsl(var(--accent-ai) / 0.07), transparent 55%);
+  }
+
+  /* Faint technical grid — evokes imaging equipment without decoration noise */
+  .grid-field {
+    background-image:
+      linear-gradient(to right, hsl(var(--foreground) / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--foreground) / 0.04) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  /* Thin gradient hairline used under the navbar / above the model card */
+  .hairline {
+    background: linear-gradient(
+      to right,
+      transparent,
+      hsl(var(--primary) / 0.35),
+      hsl(var(--accent-ai) / 0.35),
+      transparent
+    );
+  }
+}
+
+@layer utilities {
+  .text-gradient-ai {
+    @apply bg-gradient-to-r from-primary to-[hsl(var(--accent-ai))] bg-clip-text text-transparent;
+  }
+
+  /* Tabular numerals for metrics — keeps confidence figures from jittering */
+  .numeric {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
   }
 }
