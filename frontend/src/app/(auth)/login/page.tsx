@@ -43,7 +43,7 @@ export default function LoginPage() {
 
   // Already logged in? Don't show the form again.
   useEffect(() => {
-    if (!isLoading && isAuthenticated) router.replace("/dashboard");
+    if (!isLoading && isAuthenticated) router.replace("/prediction");
   }, [isLoading, isAuthenticated, router]);
 
   const {
@@ -57,7 +57,7 @@ export default function LoginPage() {
     try {
       const user = await login(values.username, values.password);
       toast.success(`Welcome, ${user.full_name ?? user.username}`);
-      router.replace("/dashboard");
+      router.replace("/prediction");
     } catch (err) {
       const { message } = extractApiError(err);
       setApiError(message);

@@ -16,7 +16,7 @@ export default function RootPage() {
 
   useEffect(() => {
     if (isLoading) return;
-    router.replace(isAuthenticated ? "/dashboard" : "/login");
+    router.replace(isAuthenticated ? "/prediction" : "/login");
   }, [isAuthenticated, isLoading, router]);
 
   return <FullPageLoader label="Loading ThoraxVision..." />;
