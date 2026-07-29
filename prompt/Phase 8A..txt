@@ -1,0 +1,80 @@
+You are the Lead Backend Architect for ThoraxVision.
+
+Current status:
+
+Phase 1–7 are completed.
+
+The application already supports:
+
+- Authentication
+- JWT
+- Prediction API
+- AI Engine
+- Prediction Storage
+- PostgreSQL
+- FastAPI
+- SQLAlchemy
+
+There is one remaining architectural issue.
+
+Currently POST /predict does not associate predictions with authenticated users.
+
+Prediction records are stored with user_id = NULL.
+
+Your task is Phase 8A.
+
+====================================
+
+OBJECTIVE
+
+Integrate authentication into the Prediction pipeline.
+
+Every prediction must automatically belong to the currently authenticated user.
+
+====================================
+
+Requirements
+
+• Protect POST /predict using get_current_user()
+
+• PredictionService must receive current_user
+
+• PredictionRepository must save user_id
+
+• HistoryRepository must support:
+
+- get_predictions_by_user()
+
+- pagination
+
+- sorting
+
+- search
+
+• HistoryService must be added.
+
+• History API must return only predictions belonging to the authenticated user.
+
+====================================
+
+Do NOT modify:
+
+- AI Engine
+
+- Model Loading
+
+- Inference Logic
+
+- GradCAM
+
+- Frontend
+
+- Database schema unless absolutely required.
+
+====================================
+
+Generate ONLY the implementation manifest.
+
+Do NOT write code.
+
+Wait for my confirmation.

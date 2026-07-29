@@ -12,6 +12,7 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
+from app.services.history_service import HistoryService
 from app.ai.exceptions import AIEngineError
 from app.ai.predictor import InferenceEngine
 from app.core.exceptions import (
@@ -49,6 +50,11 @@ def get_inference_engine() -> InferenceEngine:
     except AIEngineError as exc:
         raise ModelUnavailableError("AI model is unavailable.", detail=str(exc)) from exc
 
+def get_history_service(
+    db: Session = Depends(get_db),
+) -> HistoryService:
+    """History use case — read-only, owner-scoped. No AI engine needed."""
+    return HistoryService(db)
 
 def get_prediction_service(
     db: Session = Depends(get_db),

@@ -86,3 +86,60 @@ export function isErrorResponse(body: unknown): body is ErrorResponse {
     "error" in body
   );
 }
+/** Studies / History (schemas/history.py, Phase 8A) */
+
+export type SortOption =
+  | "newest"
+  | "oldest"
+  | "highest_confidence"
+  | "lowest_confidence";
+
+export interface HistoryItem {
+  prediction_id: number;
+  predicted_label: string;
+  confidence: number;
+  thumbnail_url: string | null;
+  created_at: string;
+}
+
+export interface HistoryListResponse {
+  success: true;
+  items: HistoryItem[];
+  total: number;
+  page: number;
+  limit: number;
+  total_pages: number;
+}
+
+export interface HistoryModelInfo {
+  name: string | null;
+  version: string | null;
+  framework: string | null;
+  architecture: string | null;
+}
+
+export interface HistoryDetailResponse {
+  success: true;
+  prediction_id: number;
+  predicted_label: string;
+  confidence: number;
+  probabilities: Record<string, number>;
+  original_image_url: string | null;
+  gradcam_url: string | null;
+  thumbnail_url: string | null;
+  inference_time: number | null;
+  notes: string | null;
+  model_info: HistoryModelInfo | null;
+  created_at: string;
+}
+
+export interface StudiesQuery {
+  page?: number;
+  limit?: number;
+  sort?: SortOption;
+  search?: string;
+  label?: string;
+  date_from?: string;
+  date_to?: string;
+  min_confidence?: number;
+}

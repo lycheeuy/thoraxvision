@@ -248,9 +248,9 @@ export default function PredictionPage() {
                 {/* Post-result actions */}
                 <div className="flex flex-wrap items-center gap-3">
                   <Button variant="outline" asChild>
-                    <Link href="/history">
-                      <History /> View history
-                    </Link>
+                      <Link href="/history">
+                       <History /> View history
+                      </Link>
                   </Button>
                   <Button variant="ghost" onClick={reset}>
                     <RotateCcw /> New analysis

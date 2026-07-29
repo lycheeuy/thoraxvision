@@ -1,0 +1,105 @@
+You are the Lead Frontend Engineer for ThoraxVision.
+
+Current Status
+
+Phase 1–8A are completed.
+
+Backend History API is fully implemented.
+
+Your task is ONLY Phase 8B.
+
+====================================
+
+OBJECTIVE
+
+Create the Studies module.
+
+This is the history management module for previous AI analyses.
+
+====================================
+
+Requirements
+
+Rename "History" to "Studies".
+
+Use a professional medical workstation design.
+
+Pages:
+
+- /studies
+
+- /studies/[id]
+
+====================================
+
+Studies List
+
+Show:
+
+- Study ID
+
+- Thumbnail
+
+- Prediction
+
+- Confidence
+
+- Date
+
+- Status
+
+- Action
+
+====================================
+
+Features
+
+Search
+
+Filter
+
+Sorting
+
+Pagination
+
+Empty State
+
+Loading State
+
+Error State
+
+====================================
+
+Study Detail
+
+Show:
+
+Original Image
+
+GradCAM
+
+Prediction
+
+Confidence
+
+Classification Summary
+
+Model Information
+
+Study Information
+
+Notes
+
+====================================
+
+Keep existing API.
+
+Do not modify backend.
+
+Do not modify routing architecture.
+
+Generate ONLY implementation manifest.
+
+Do NOT write code.
+
+Wait for my confirmation.

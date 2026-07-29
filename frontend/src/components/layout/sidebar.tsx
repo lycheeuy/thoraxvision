@@ -38,7 +38,7 @@ import { useAuth } from "@/providers/auth-provider";
 export const NAV_ITEMS = [
   { href: "/dashboard", label: "Overview", icon: LayoutGrid, hint: "Workspace" },
   { href: "/prediction", label: "New Analysis", icon: ScanLine, hint: "Run the model" },
-  { href: "/history", label: "Studies", icon: History, hint: "Past analyses" },
+  { href: "/studies", label: "Studies", icon: History, hint: "Past analyses" },
   { href: "/performance", label: "Model Metrics", icon: Activity, hint: "Evaluation" },
   { href: "/profile", label: "Account", icon: UserRound, hint: "Your profile" },
 ] as const;
