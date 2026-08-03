@@ -58,7 +58,11 @@ class Settings(BaseSettings):
 
     # ---------- Logging ----------
     LOG_LEVEL: str = "INFO"
-
+    
+    # Model research artifacts (Phase 9) — read-only.
+    MODEL_ARTIFACTS_DIR: str = "ml_models/artifacts"
+    MODEL_ARTIFACTS_URL_PREFIX: str = "/static/model-artifacts"
+    
     # ---------- Derived values ----------
     @property
     def cors_origins(self) -> list[str]:
@@ -99,6 +103,11 @@ class Settings(BaseSettings):
     @property
     def upload_root(self) -> Path:
         return BACKEND_DIR / self.UPLOAD_DIR
+    
+    @property
+    def model_artifacts_root(self) -> Path:
+        p = Path(self.MODEL_ARTIFACTS_DIR)
+        return p if p.is_absolute() else (BACKEND_DIR / p)
 
     @property
     def original_dir(self) -> Path:

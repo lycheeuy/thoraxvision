@@ -1,0 +1,1042 @@
+{
+  "log": [
+    {
+      "iter": 1,
+      "wolf": 1,
+      "fitness": 0.4832869080779944,
+      "lr": 5.61151641533451e-05,
+      "dropout_rate": 0.5802857225639664,
+      "weight_decay": 0.00015702970884055384,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 1,
+      "wolf": 2,
+      "fitness": 0.6086350974930362,
+      "lr": 0.00015751320499779724,
+      "dropout_rate": 0.2624074561769746,
+      "weight_decay": 2.9375384576328275e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 1,
+      "wolf": 3,
+      "fitness": 0.3426183844011142,
+      "lr": 1.3066739238053285e-05,
+      "dropout_rate": 0.546470458309974,
+      "weight_decay": 6.358358856676252e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 1,
+      "wolf": 4,
+      "fitness": 0.5515320334261838,
+      "lr": 0.00026070247583707664,
+      "dropout_rate": 0.20823379771832098,
+      "weight_decay": 0.0008123245085588686,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 1,
+      "wolf": 5,
+      "fitness": 0.5766016713091922,
+      "lr": 0.0004622589001020828,
+      "dropout_rate": 0.28493564427131046,
+      "weight_decay": 3.5113563139704043e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 1,
+      "wolf": 6,
+      "fitness": 0.3426183844011142,
+      "lr": 2.3270677083837774e-05,
+      "dropout_rate": 0.3216968971838151,
+      "weight_decay": 3.7520558551242794e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 1,
+      "wolf": 7,
+      "fitness": 0.5250696378830083,
+      "lr": 7.309539835912905e-05,
+      "dropout_rate": 0.31649165607921675,
+      "weight_decay": 6.847920095574771e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 1,
+      "wolf": 8,
+      "fitness": 0.362116991643454,
+      "lr": 1.901024531987036e-05,
+      "dropout_rate": 0.3168578594140873,
+      "weight_decay": 1.2562773503807012e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 1,
+      "wolf": 9,
+      "fitness": 0.5557103064066853,
+      "lr": 8.16845589476017e-05,
+      "dropout_rate": 0.5140703845572054,
+      "weight_decay": 3.972110727381913e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 1,
+      "wolf": 10,
+      "fitness": 0.5724233983286908,
+      "lr": 0.00010677482709481354,
+      "dropout_rate": 0.43696582754481694,
+      "weight_decay": 1.378323745500719e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 2,
+      "wolf": 1,
+      "fitness": 0.6309192200557103,
+      "lr": 0.00048249539706240584,
+      "dropout_rate": 0.2227019354629891,
+      "weight_decay": 8.008000628155831e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 2,
+      "wolf": 2,
+      "fitness": 0.5724233983286908,
+      "lr": 0.0008440169526016686,
+      "dropout_rate": 0.22199592955827585,
+      "weight_decay": 1e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 2,
+      "wolf": 3,
+      "fitness": 0.5877437325905293,
+      "lr": 0.00011313724400300415,
+      "dropout_rate": 0.42959102704021196,
+      "weight_decay": 1e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 2,
+      "wolf": 4,
+      "fitness": 0.6155988857938719,
+      "lr": 0.00031772057714762875,
+      "dropout_rate": 0.5120506211497426,
+      "weight_decay": 1e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 2,
+      "wolf": 5,
+      "fitness": 0.6100278551532033,
+      "lr": 0.00046983696203798156,
+      "dropout_rate": 0.27150160841110504,
+      "weight_decay": 2.4201456746464405e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 2,
+      "wolf": 6,
+      "fitness": 0.6518105849582173,
+      "lr": 0.00010225086922883381,
+      "dropout_rate": 0.2712238583745532,
+      "weight_decay": 1.9624510355371096e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 2,
+      "wolf": 7,
+      "fitness": 0.3426183844011142,
+      "lr": 3.152070488203643e-05,
+      "dropout_rate": 0.31545454887406077,
+      "weight_decay": 1e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 2,
+      "wolf": 8,
+      "fitness": 0.584958217270195,
+      "lr": 7.219582359582588e-05,
+      "dropout_rate": 0.3864608515745438,
+      "weight_decay": 3.2771650279949427e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 2,
+      "wolf": 9,
+      "fitness": 0.5947075208913649,
+      "lr": 9.058877625126676e-05,
+      "dropout_rate": 0.2,
+      "weight_decay": 5.421619631720698e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 2,
+      "wolf": 10,
+      "fitness": 0.5724233983286908,
+      "lr": 0.00011199488216498619,
+      "dropout_rate": 0.3918084743223908,
+      "weight_decay": 2.094117588502472e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 3,
+      "wolf": 1,
+      "fitness": 0.5,
+      "lr": 6.685850926724781e-05,
+      "dropout_rate": 0.35670079321682807,
+      "weight_decay": 7.649557034853982e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 3,
+      "wolf": 2,
+      "fitness": 0.6559888579387186,
+      "lr": 0.0001736861592303847,
+      "dropout_rate": 0.32336296270919407,
+      "weight_decay": 1.1538690404719912e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 3,
+      "wolf": 3,
+      "fitness": 0.5988857938718662,
+      "lr": 0.0006885305621343427,
+      "dropout_rate": 0.3580651789558918,
+      "weight_decay": 2.4486684557913973e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 3,
+      "wolf": 4,
+      "fitness": 0.5779944289693594,
+      "lr": 0.00037934434875654935,
+      "dropout_rate": 0.2,
+      "weight_decay": 3.481597906725292e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 3,
+      "wolf": 5,
+      "fitness": 0.5668523676880223,
+      "lr": 0.00043605355939460507,
+      "dropout_rate": 0.3142347897089027,
+      "weight_decay": 7.6281521866343e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 3,
+      "wolf": 6,
+      "fitness": 0.637883008356546,
+      "lr": 0.00033799068205549713,
+      "dropout_rate": 0.2,
+      "weight_decay": 4.067394815656712e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 3,
+      "wolf": 7,
+      "fitness": 0.4777158774373259,
+      "lr": 5.138157747914641e-05,
+      "dropout_rate": 0.4208007602363472,
+      "weight_decay": 7.578374403155958e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 3,
+      "wolf": 8,
+      "fitness": 0.6866295264623955,
+      "lr": 0.00031669727337377127,
+      "dropout_rate": 0.3138691146450999,
+      "weight_decay": 3.530436098675595e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 3,
+      "wolf": 9,
+      "fitness": 0.5738161559888579,
+      "lr": 0.001,
+      "dropout_rate": 0.2890103484625746,
+      "weight_decay": 0.0001833442990931334,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 3,
+      "wolf": 10,
+      "fitness": 0.5905292479108635,
+      "lr": 8.74763843336097e-05,
+      "dropout_rate": 0.22558485706126039,
+      "weight_decay": 3.5062685560194496e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 4,
+      "wolf": 1,
+      "fitness": 0.692200557103064,
+      "lr": 0.0002508444629209178,
+      "dropout_rate": 0.26183295873532103,
+      "weight_decay": 5.121969293629403e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 4,
+      "wolf": 2,
+      "fitness": 0.6044568245125348,
+      "lr": 0.00011643064665623771,
+      "dropout_rate": 0.3127093140192057,
+      "weight_decay": 3.183137535831719e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 4,
+      "wolf": 3,
+      "fitness": 0.6128133704735376,
+      "lr": 0.00013325094211300847,
+      "dropout_rate": 0.22318847835795017,
+      "weight_decay": 2.0364326549123974e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 4,
+      "wolf": 4,
+      "fitness": 0.6810584958217271,
+      "lr": 0.00017866737589750881,
+      "dropout_rate": 0.2595630480432483,
+      "weight_decay": 1.5466781558797675e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 4,
+      "wolf": 5,
+      "fitness": 0.5431754874651811,
+      "lr": 7.373725163195693e-05,
+      "dropout_rate": 0.24929647248666545,
+      "weight_decay": 2.0689122068909994e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 4,
+      "wolf": 6,
+      "fitness": 0.5891364902506964,
+      "lr": 0.0005469648546310669,
+      "dropout_rate": 0.2,
+      "weight_decay": 1.03727458303224e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 4,
+      "wolf": 7,
+      "fitness": 0.4986072423398329,
+      "lr": 3.647728106291298e-05,
+      "dropout_rate": 0.3624466858180846,
+      "weight_decay": 1.1392080642504847e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 4,
+      "wolf": 8,
+      "fitness": 0.5738161559888579,
+      "lr": 0.0002517587505515472,
+      "dropout_rate": 0.39502763212936864,
+      "weight_decay": 1.399836303461341e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 4,
+      "wolf": 9,
+      "fitness": 0.6824512534818942,
+      "lr": 0.00026643236796735075,
+      "dropout_rate": 0.336286722377883,
+      "weight_decay": 4.254729605861998e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 4,
+      "wolf": 10,
+      "fitness": 0.5891364902506964,
+      "lr": 0.0001043800193375026,
+      "dropout_rate": 0.28420947731444207,
+      "weight_decay": 1.4546185249797076e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 5,
+      "wolf": 1,
+      "fitness": 0.4610027855153203,
+      "lr": 0.00021522902784490387,
+      "dropout_rate": 0.2,
+      "weight_decay": 3.353122583082312e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 5,
+      "wolf": 2,
+      "fitness": 0.6406685236768802,
+      "lr": 0.0002850193070470932,
+      "dropout_rate": 0.3653184058833407,
+      "weight_decay": 8.64976853317731e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 5,
+      "wolf": 3,
+      "fitness": 0.5863509749303621,
+      "lr": 0.00013418408315152844,
+      "dropout_rate": 0.4307234856309683,
+      "weight_decay": 1.555137763393219e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 5,
+      "wolf": 4,
+      "fitness": 0.5515320334261838,
+      "lr": 0.0003636234698013363,
+      "dropout_rate": 0.2005401661371924,
+      "weight_decay": 8.853791014694641e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 5,
+      "wolf": 5,
+      "fitness": 0.7325905292479109,
+      "lr": 0.0002820445161497689,
+      "dropout_rate": 0.31965991775109953,
+      "weight_decay": 0.00010558112151588262,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 5,
+      "wolf": 6,
+      "fitness": 0.541782729805014,
+      "lr": 0.00017969043569666463,
+      "dropout_rate": 0.42357100722585556,
+      "weight_decay": 4.917819741520735e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 5,
+      "wolf": 7,
+      "fitness": 0.6128133704735376,
+      "lr": 0.00023942444040671692,
+      "dropout_rate": 0.2,
+      "weight_decay": 0.00029169319270939915,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 5,
+      "wolf": 8,
+      "fitness": 0.5905292479108635,
+      "lr": 0.00022665380164940918,
+      "dropout_rate": 0.30233519056008473,
+      "weight_decay": 3.2474895640638966e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 5,
+      "wolf": 9,
+      "fitness": 0.5988857938718662,
+      "lr": 0.00017837858708745336,
+      "dropout_rate": 0.3804485519793747,
+      "weight_decay": 4.916007661793568e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 5,
+      "wolf": 10,
+      "fitness": 0.649025069637883,
+      "lr": 0.0008018911633988256,
+      "dropout_rate": 0.337926714707087,
+      "weight_decay": 1.5439246514140355e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 6,
+      "wolf": 1,
+      "fitness": 0.6754874651810585,
+      "lr": 0.00021822976790346083,
+      "dropout_rate": 0.5432615682080257,
+      "weight_decay": 7.789751668469446e-06,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 6,
+      "wolf": 2,
+      "fitness": 0.5334261838440112,
+      "lr": 0.0002873623765315213,
+      "dropout_rate": 0.2,
+      "weight_decay": 1.1843869763171109e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 6,
+      "wolf": 3,
+      "fitness": 0.6364902506963789,
+      "lr": 0.0001972786939749041,
+      "dropout_rate": 0.2855372227033398,
+      "weight_decay": 6.772740742022161e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 6,
+      "wolf": 4,
+      "fitness": 0.5766016713091922,
+      "lr": 0.0009839245255351403,
+      "dropout_rate": 0.3630784741480529,
+      "weight_decay": 1.9832025549540798e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 6,
+      "wolf": 5,
+      "fitness": 0.584958217270195,
+      "lr": 0.00026888834064329895,
+      "dropout_rate": 0.3284819215647112,
+      "weight_decay": 0.00013361025185161765,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 6,
+      "wolf": 6,
+      "fitness": 0.6392757660167131,
+      "lr": 0.000176350710915101,
+      "dropout_rate": 0.2668951084623114,
+      "weight_decay": 0.00012115204426024481,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 6,
+      "wolf": 7,
+      "fitness": 0.5919220055710307,
+      "lr": 0.00015136236026610478,
+      "dropout_rate": 0.21510488689655885,
+      "weight_decay": 0.00011304881596485827,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 6,
+      "wolf": 8,
+      "fitness": 0.5431754874651811,
+      "lr": 0.00048498616137681964,
+      "dropout_rate": 0.3584058619749025,
+      "weight_decay": 0.00029467793898653644,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 6,
+      "wolf": 9,
+      "fitness": 0.6128133704735376,
+      "lr": 0.00023495741645927946,
+      "dropout_rate": 0.216618419485708,
+      "weight_decay": 2.9226207842892437e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 6,
+      "wolf": 10,
+      "fitness": 0.6406685236768802,
+      "lr": 0.00034960359694052244,
+      "dropout_rate": 0.2993231505267003,
+      "weight_decay": 3.148781284355287e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 7,
+      "wolf": 1,
+      "fitness": 0.6253481894150418,
+      "lr": 0.00019849268249611055,
+      "dropout_rate": 0.3417597916964979,
+      "weight_decay": 8.124803122585098e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 7,
+      "wolf": 2,
+      "fitness": 0.5584958217270195,
+      "lr": 0.00010797998387425609,
+      "dropout_rate": 0.25921831756483754,
+      "weight_decay": 3.116656939610909e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 7,
+      "wolf": 3,
+      "fitness": 0.5905292479108635,
+      "lr": 9.136730621421948e-05,
+      "dropout_rate": 0.258386582123912,
+      "weight_decay": 4.6074548999791076e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 7,
+      "wolf": 4,
+      "fitness": 0.5473537604456824,
+      "lr": 0.00010203038302550573,
+      "dropout_rate": 0.310036334054365,
+      "weight_decay": 7.799530451775086e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 7,
+      "wolf": 5,
+      "fitness": 0.5905292479108635,
+      "lr": 0.00029946147220180267,
+      "dropout_rate": 0.30692549118011647,
+      "weight_decay": 0.00013714091127408186,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 7,
+      "wolf": 6,
+      "fitness": 0.6323119777158774,
+      "lr": 0.00039358285796897116,
+      "dropout_rate": 0.3106294227718002,
+      "weight_decay": 4.703819639028139e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 7,
+      "wolf": 7,
+      "fitness": 0.5222841225626741,
+      "lr": 0.0004309540684544314,
+      "dropout_rate": 0.27208204864168367,
+      "weight_decay": 4.6721723989483757e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 7,
+      "wolf": 8,
+      "fitness": 0.5891364902506964,
+      "lr": 0.00024694745893052007,
+      "dropout_rate": 0.3134402449545591,
+      "weight_decay": 7.917856658511336e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 7,
+      "wolf": 9,
+      "fitness": 0.6392757660167131,
+      "lr": 0.0001695635138554594,
+      "dropout_rate": 0.2372547773161414,
+      "weight_decay": 0.00016399068363200624,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 7,
+      "wolf": 10,
+      "fitness": 0.6852367688022284,
+      "lr": 0.0005307594219640955,
+      "dropout_rate": 0.33710220957513154,
+      "weight_decay": 4.7532047961331526e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 8,
+      "wolf": 1,
+      "fitness": 0.6810584958217271,
+      "lr": 0.0002332806113295125,
+      "dropout_rate": 0.22457239756838346,
+      "weight_decay": 6.718993195754751e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 8,
+      "wolf": 2,
+      "fitness": 0.5877437325905293,
+      "lr": 0.000351854360879208,
+      "dropout_rate": 0.25923642631321564,
+      "weight_decay": 0.00010477551872814221,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 8,
+      "wolf": 3,
+      "fitness": 0.6323119777158774,
+      "lr": 0.00022811259047435736,
+      "dropout_rate": 0.2918640395591911,
+      "weight_decay": 3.2736485395059575e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 8,
+      "wolf": 4,
+      "fitness": 0.5487465181058496,
+      "lr": 0.00043068548917887545,
+      "dropout_rate": 0.29316249455584614,
+      "weight_decay": 6.901325686258831e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 8,
+      "wolf": 5,
+      "fitness": 0.724233983286908,
+      "lr": 0.00029325075505565493,
+      "dropout_rate": 0.3209021596773816,
+      "weight_decay": 2.81945113074185e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 8,
+      "wolf": 6,
+      "fitness": 0.5431754874651811,
+      "lr": 0.00014611089487972595,
+      "dropout_rate": 0.28473723737153084,
+      "weight_decay": 2.8109275591152016e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 8,
+      "wolf": 7,
+      "fitness": 0.6671309192200557,
+      "lr": 0.0002907462942258987,
+      "dropout_rate": 0.29623021026428975,
+      "weight_decay": 4.5620569567857546e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 8,
+      "wolf": 8,
+      "fitness": 0.5905292479108635,
+      "lr": 0.0003266278452302066,
+      "dropout_rate": 0.3256951234556193,
+      "weight_decay": 8.230260446780357e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 8,
+      "wolf": 9,
+      "fitness": 0.5835654596100278,
+      "lr": 0.0003352898047984513,
+      "dropout_rate": 0.34090946288382923,
+      "weight_decay": 3.5139357254109356e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 8,
+      "wolf": 10,
+      "fitness": 0.5278551532033426,
+      "lr": 0.00024707574985759364,
+      "dropout_rate": 0.24818193878672787,
+      "weight_decay": 6.367355368049608e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 9,
+      "wolf": 1,
+      "fitness": 0.6323119777158774,
+      "lr": 0.0003267031884925003,
+      "dropout_rate": 0.2641744855650114,
+      "weight_decay": 8.76413194951935e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 9,
+      "wolf": 2,
+      "fitness": 0.6002785515320335,
+      "lr": 0.00023889169407247698,
+      "dropout_rate": 0.30552056106669007,
+      "weight_decay": 6.445887633753989e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 9,
+      "wolf": 3,
+      "fitness": 0.5821727019498607,
+      "lr": 0.0001699707116244675,
+      "dropout_rate": 0.30694691259915585,
+      "weight_decay": 4.4615097164857336e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 9,
+      "wolf": 4,
+      "fitness": 0.5445682451253482,
+      "lr": 0.00019164090244792975,
+      "dropout_rate": 0.3135136264405307,
+      "weight_decay": 9.740168862242045e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 9,
+      "wolf": 5,
+      "fitness": 0.5626740947075209,
+      "lr": 0.00030256341225229767,
+      "dropout_rate": 0.34952249935562385,
+      "weight_decay": 3.7552224620996915e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 9,
+      "wolf": 6,
+      "fitness": 0.5557103064066853,
+      "lr": 0.0003325210412578828,
+      "dropout_rate": 0.3309967296969005,
+      "weight_decay": 4.421099044513267e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 9,
+      "wolf": 7,
+      "fitness": 0.6253481894150418,
+      "lr": 0.0003361092993517598,
+      "dropout_rate": 0.28842316569569243,
+      "weight_decay": 0.00011435582949435212,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 9,
+      "wolf": 8,
+      "fitness": 0.5362116991643454,
+      "lr": 0.00030824738563522925,
+      "dropout_rate": 0.2840931124935944,
+      "weight_decay": 4.00287211823472e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 9,
+      "wolf": 9,
+      "fitness": 0.5974930362116991,
+      "lr": 0.00024028689126518832,
+      "dropout_rate": 0.2678700014542754,
+      "weight_decay": 6.609993688677959e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 9,
+      "wolf": 10,
+      "fitness": 0.6894150417827298,
+      "lr": 0.00022924779894563325,
+      "dropout_rate": 0.27538905023228183,
+      "weight_decay": 6.291899209831723e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 10,
+      "wolf": 1,
+      "fitness": 0.46657381615598886,
+      "lr": 0.00024349987331443799,
+      "dropout_rate": 0.3084017349873939,
+      "weight_decay": 4.718021014226685e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 10,
+      "wolf": 2,
+      "fitness": 0.5069637883008357,
+      "lr": 0.00019287475579151482,
+      "dropout_rate": 0.29687703507475394,
+      "weight_decay": 4.810434827435316e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 10,
+      "wolf": 3,
+      "fitness": 0.6392757660167131,
+      "lr": 0.00031501415825768676,
+      "dropout_rate": 0.3191870411957066,
+      "weight_decay": 4.946162986169949e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 10,
+      "wolf": 4,
+      "fitness": 0.6392757660167131,
+      "lr": 0.0002408989902326236,
+      "dropout_rate": 0.29097904701439387,
+      "weight_decay": 4.9023722411119736e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 10,
+      "wolf": 5,
+      "fitness": 0.649025069637883,
+      "lr": 0.0002643469810044451,
+      "dropout_rate": 0.2998915216709858,
+      "weight_decay": 5.5760291286561625e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 10,
+      "wolf": 6,
+      "fitness": 0.628133704735376,
+      "lr": 0.00022630717791399728,
+      "dropout_rate": 0.2942138073067239,
+      "weight_decay": 4.466442080287037e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 10,
+      "wolf": 7,
+      "fitness": 0.6573816155988857,
+      "lr": 0.00022880040536036737,
+      "dropout_rate": 0.29623559144530526,
+      "weight_decay": 4.5130503712284804e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 10,
+      "wolf": 8,
+      "fitness": 0.6253481894150418,
+      "lr": 0.000319682526224014,
+      "dropout_rate": 0.28995905048649895,
+      "weight_decay": 5.6964065402785786e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 10,
+      "wolf": 9,
+      "fitness": 0.5835654596100278,
+      "lr": 0.00026255925723514436,
+      "dropout_rate": 0.28619047227462696,
+      "weight_decay": 5.46601582785509e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    },
+    {
+      "iter": 10,
+      "wolf": 10,
+      "fitness": 0.6448467966573816,
+      "lr": 0.00025232402373761805,
+      "dropout_rate": 0.3209561579260368,
+      "weight_decay": 4.307000234312058e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    }
+  ],
+  "best_hp": {
+    "lr": 0.0002820445161497689,
+    "dropout_rate": 0.31965991775109953,
+    "weight_decay": 0.00010558112151588262,
+    "batch_size": 16,
+    "dense_units": 512
+  },
+  "best_fitness": 0.7325905292479109,
+  "alpha": {
+    "score": 0.7325905292479109,
+    "hp": {
+      "lr": 0.0002820445161497689,
+      "dropout_rate": 0.31965991775109953,
+      "weight_decay": 0.00010558112151588262,
+      "batch_size": 16,
+      "dense_units": 512
+    }
+  },
+  "beta": {
+    "score": 0.724233983286908,
+    "hp": {
+      "lr": 0.00029325075505565493,
+      "dropout_rate": 0.3209021596773816,
+      "weight_decay": 2.81945113074185e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    }
+  },
+  "delta": {
+    "score": 0.692200557103064,
+    "hp": {
+      "lr": 0.0002508444629209178,
+      "dropout_rate": 0.26183295873532103,
+      "weight_decay": 5.121969293629403e-05,
+      "batch_size": 16,
+      "dense_units": 512
+    }
+  }
+}

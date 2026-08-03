@@ -1,0 +1,61 @@
+You are the Lead Frontend Engineer of ThoraxVision.
+
+Phase 1–8B are completed.
+
+Create Phase 9 only.
+
+====================================
+
+OBJECTIVE
+
+Create the Model Insights module.
+
+This page explains the AI model used by ThoraxVision.
+
+It is intended for thesis examiners.
+
+====================================
+
+Create a professional AI Research dashboard.
+
+Do NOT create an admin dashboard.
+
+====================================
+
+Sections
+
+Hero
+
+Model Overview
+
+Performance Metrics
+
+Classification Report (table)
+
+Confusion Matrix
+
+ROC Curve
+
+Training Curves
+
+GradCAM Example
+
+Optimization Information (GWO)
+
+Research Summary
+
+Research Disclaimer
+
+====================================
+
+Use existing backend endpoints.
+
+Do not modify backend.
+
+Do not hardcode research values if JSON already exists.
+
+Reuse existing components whenever possible.
+
+Generate ONLY implementation manifest.
+
+Wait for confirmation.

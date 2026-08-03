@@ -19,7 +19,9 @@ import {
   PanelLeftOpen,
   ScanLine,
   UserRound,
+  FlaskConical,
 } from "lucide-react";
+
 import { useState } from "react";
 
 import { Logo } from "@/components/common/logo";
@@ -39,7 +41,7 @@ export const NAV_ITEMS = [
   { href: "/dashboard", label: "Overview", icon: LayoutGrid, hint: "Workspace" },
   { href: "/prediction", label: "New Analysis", icon: ScanLine, hint: "Run the model" },
   { href: "/studies", label: "Studies", icon: History, hint: "Past analyses" },
-  { href: "/performance", label: "Model Metrics", icon: Activity, hint: "Evaluation" },
+  { href: "/insights", label: "Model Insights", icon: FlaskConical, hint: "AI research" },
   { href: "/profile", label: "Account", icon: UserRound, hint: "Your profile" },
 ] as const;
 

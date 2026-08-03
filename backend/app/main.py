@@ -50,6 +50,14 @@ app.mount(
     name="uploads",
 )
 
+# Model research artifacts (Phase 9) — read-only static files.
+if settings.model_artifacts_root.is_dir():
+    app.mount(
+        settings.MODEL_ARTIFACTS_URL_PREFIX,
+        StaticFiles(directory=settings.model_artifacts_root),
+        name="model-artifacts",
+    )
+
 app.include_router(api_router, prefix=settings.API_V1_PREFIX)
 
 

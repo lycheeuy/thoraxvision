@@ -1,0 +1,10 @@
+DenseNet121 + GWO
+
+              precision    recall  f1-score   support
+
+     NON_TBC     0.5491    0.8381    0.6635       247
+TUBERKULOSIS     0.8827    0.6391    0.7414       471
+
+    accuracy                         0.7075       718
+   macro avg     0.7159    0.7386    0.7024       718
+weighted avg     0.7679    0.7075    0.7146       718

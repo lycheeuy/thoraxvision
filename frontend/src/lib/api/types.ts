@@ -143,3 +143,68 @@ export interface StudiesQuery {
   date_to?: string;
   min_confidence?: number;
 }
+
+// ---- Model Insights (schemas/model_insights.py, Phase 9) ---------------
+
+export interface ModelOverview {
+  name: string | null;
+  version: string | null;
+  framework: string | null;
+  architecture: string | null;
+  task: string | null;
+  input_size: number | null;
+  threshold: number | null;
+  classes: string[] | null;
+}
+
+export interface ClassificationRow {
+  label: string;
+  precision: number | null;
+  recall: number | null;
+  f1_score: number | null;
+  support: number | null;
+}
+
+export interface ClassificationReport {
+  per_class: ClassificationRow[];
+  accuracy: number | null;
+  macro_avg: ClassificationRow | null;
+  weighted_avg: ClassificationRow | null;
+}
+
+export interface PerformanceMetrics {
+  accuracy: number | null;
+  precision: number | null;
+  recall: number | null;
+  f1_score: number | null;
+}
+
+export interface ArtifactInfo {
+  available: boolean;
+  url: string | null;
+  size_bytes: number | null;
+  modified_at: string | null;
+}
+
+export type ArtifactKey =
+  | "classification_report"
+  | "confusion_matrix"
+  | "roc_curve"
+  | "training_curves"
+  | "gradcam_example"
+  | "gwo_log"
+  | "research_summary";
+
+export interface ModelInsightsResponse {
+  success: true;
+  overview: ModelOverview;
+  metrics: PerformanceMetrics | null;
+  classification_report: ClassificationReport | null;
+  confusion_matrix_url: string | null;
+  roc_curve_url: string | null;
+  training_curves_url: string | null;
+  gradcam_example_url: string | null;
+  gwo: Record<string, unknown> | null;
+  research_summary: Record<string, unknown> | null;
+  artifacts: Record<ArtifactKey, ArtifactInfo>;
+}

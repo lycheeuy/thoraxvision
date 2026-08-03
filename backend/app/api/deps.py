@@ -29,6 +29,7 @@ from app.infrastructure.repositories.user_repository import UserRepository
 from app.services.auth_service import AuthService
 from app.services.prediction_service import PredictionService
 from app.services.user_service import UserService
+from app.services.model_insights_service import ModelInsightsService
 
 # tokenUrl points at the login endpoint so Swagger's Authorize button works.
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
@@ -62,6 +63,9 @@ def get_prediction_service(
 ) -> PredictionService:
     return PredictionService(engine=engine, repository=PredictionRepository(db))
 
+def get_model_insights_service() -> ModelInsightsService:
+    """Model Insights use case — read-only, no DB, no model loading."""
+    return ModelInsightsService()
 
 # ---- Authentication chain ---------------------------------------------
 def get_current_user(
