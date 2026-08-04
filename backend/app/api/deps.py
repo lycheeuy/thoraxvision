@@ -12,7 +12,6 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
-from app.services.history_service import HistoryService
 from app.ai.exceptions import AIEngineError
 from app.ai.predictor import InferenceEngine
 from app.core.exceptions import (
@@ -27,9 +26,11 @@ from app.infrastructure.database.session import get_db
 from app.infrastructure.repositories.prediction_repository import PredictionRepository
 from app.infrastructure.repositories.user_repository import UserRepository
 from app.services.auth_service import AuthService
+from app.services.dashboard_service import DashboardService
+from app.services.history_service import HistoryService
+from app.services.model_insights_service import ModelInsightsService
 from app.services.prediction_service import PredictionService
 from app.services.user_service import UserService
-from app.services.model_insights_service import ModelInsightsService
 
 # tokenUrl points at the login endpoint so Swagger's Authorize button works.
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
@@ -51,11 +52,6 @@ def get_inference_engine() -> InferenceEngine:
     except AIEngineError as exc:
         raise ModelUnavailableError("AI model is unavailable.", detail=str(exc)) from exc
 
-def get_history_service(
-    db: Session = Depends(get_db),
-) -> HistoryService:
-    """History use case — read-only, owner-scoped. No AI engine needed."""
-    return HistoryService(db)
 
 def get_prediction_service(
     db: Session = Depends(get_db),
@@ -63,9 +59,21 @@ def get_prediction_service(
 ) -> PredictionService:
     return PredictionService(engine=engine, repository=PredictionRepository(db))
 
+
+def get_history_service(db: Session = Depends(get_db)) -> HistoryService:
+    """History use case — read-only, owner-scoped. No AI engine needed."""
+    return HistoryService(db)
+
+
 def get_model_insights_service() -> ModelInsightsService:
     """Model Insights use case — read-only, no DB, no model loading."""
     return ModelInsightsService()
+
+
+def get_dashboard_service(db: Session = Depends(get_db)) -> DashboardService:
+    """Dashboard use case — read-only aggregation over the shared Session."""
+    return DashboardService(db)
+
 
 # ---- Authentication chain ---------------------------------------------
 def get_current_user(
@@ -116,6 +124,9 @@ __all__ = [
     "get_auth_service",
     "get_inference_engine",
     "get_prediction_service",
+    "get_history_service",
+    "get_model_insights_service",
+    "get_dashboard_service",
     "get_current_user",
     "get_current_active_user",
     "require_roles",

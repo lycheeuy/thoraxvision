@@ -1,0 +1,151 @@
+Sekarang kita masuk ke ThoraxVision Phase 10.
+
+Ikuti SEMUA aturan project yang sudah ada.
+
+JANGAN mengubah file lain.
+
+JANGAN membuat file selain yang saya minta.
+
+==========================================================
+FILE YANG DIKERJAKAN
+==========================================================
+
+backend/app/domain/schemas/dashboard.py
+
+==========================================================
+TUJUAN
+==========================================================
+
+Membuat seluruh Pydantic Schema untuk Dashboard API.
+
+Dashboard hanya bersifat READ ONLY.
+
+Tidak ada business logic.
+
+Tidak ada database query.
+
+Tidak ada repository.
+
+Hanya schema.
+
+Gunakan Pydantic V2.
+
+==========================================================
+SCHEMA YANG DIBUTUHKAN
+==========================================================
+
+Buat schema berikut:
+
+1.
+
+Statistics
+
+berisi
+
+- total_studies
+- today_studies
+- tb_detected
+- normal_detected
+
+semua integer.
+
+----------------------------------------------------------
+
+2.
+
+RecentStudy
+
+berisi
+
+- prediction_id
+- predicted_label
+- confidence
+- thumbnail_url
+- created_at
+
+Gunakan tipe data yang sesuai.
+
+----------------------------------------------------------
+
+3.
+
+ModelStatus
+
+berisi
+
+- name
+- architecture
+- framework
+- version
+- threshold
+- input_size
+- classes
+- device
+- loaded
+
+Gunakan tipe data yang sesuai.
+
+----------------------------------------------------------
+
+4.
+
+SystemStatus
+
+berisi
+
+- backend
+- database
+- ai_model
+- storage
+
+semua boolean.
+
+----------------------------------------------------------
+
+5.
+
+DashboardResponse
+
+berisi
+
+statistics
+
+recent_studies
+
+model
+
+system
+
+==========================================================
+RULES
+==========================================================
+
+Gunakan BaseModel.
+
+Gunakan Field() jika memang diperlukan.
+
+Tambahkan type hint lengkap.
+
+Gunakan ConfigDict bila project sebelumnya menggunakan ConfigDict.
+
+Gunakan style penulisan yang konsisten dengan schema lain di project.
+
+Jangan menggunakan Any.
+
+Jangan membuat enum yang tidak diperlukan.
+
+Jangan menambahkan field di luar spesifikasi.
+
+==========================================================
+OUTPUT
+==========================================================
+
+Berikan HANYA isi lengkap file
+
+backend/app/domain/schemas/dashboard.py
+
+Tidak perlu zip.
+
+Tidak perlu penjelasan panjang.
+
+Tidak perlu mengubah file lain.
