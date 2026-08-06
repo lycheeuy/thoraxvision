@@ -208,3 +208,46 @@ export interface ModelInsightsResponse {
   research_summary: Record<string, unknown> | null;
   artifacts: Record<ArtifactKey, ArtifactInfo>;
 }
+
+// ---- Dashboard (schemas/dashboard.py, Phase 10) ------------------------
+
+export interface Statistics {
+  total_studies: number;
+  today_studies: number;
+  tb_detected: number;
+  normal_detected: number;
+}
+
+export interface RecentStudy {
+  prediction_id: number;
+  predicted_label: string;
+  confidence: number; // percentage, 0-100
+  thumbnail_url: string | null;
+  created_at: string; // ISO 8601
+}
+
+export interface ModelStatus {
+  name: string | null;
+  architecture: string | null;
+  framework: string | null;
+  version: string | null;
+  threshold: number | null;
+  input_size: number | null;
+  classes: string[] | null;
+  device: string | null;
+  loaded: boolean;
+}
+
+export interface SystemStatus {
+  backend: boolean;
+  database: boolean;
+  ai_model: boolean;
+  storage: boolean;
+}
+
+export interface DashboardResponse {
+  statistics: Statistics;
+  recent_studies: RecentStudy[];
+  model: ModelStatus;
+  system: SystemStatus;
+}

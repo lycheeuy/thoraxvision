@@ -1,33 +1,36 @@
 "use client";
 
 /**
- * Overview — organised around the AI workflow, not around counters.
+ * Overview — the workflow-oriented dashboard, now backed by the aggregated
+ * /api/v1/dashboard endpoint. It answers, in order:
+ *   1. What do I do here?              -> hero with the primary action
+ *   2. What has been happening?        -> statistics + recent studies
+ *   3. What will an analysis do?       -> the three-stage pipeline
+ *   4. What is running, and is it up?  -> engine + system panels
  *
- * The screen answers three questions in order:
- *   1. What do I do here?        -> hero with the single primary action
- *   2. What will happen?         -> the three-stage pipeline
- *   3. What is running, and is it up? -> engine + system panels
+ * All data comes from a single dashboard response; each card receives its
+ * slice directly, with no transformation here.
  */
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import {
   ArrowRight,
   BrainCircuit,
-  Database,
-  Layers,
   ScanLine,
-  Server,
   Sparkles,
-  Target,
   Waves,
 } from "lucide-react";
 
-import { StatusDot, type SystemState } from "@/components/common/status-badge";
+import { RecentStudiesCard } from "@/components/dashboard/recent-studies-card";
+import { StatisticsCards } from "@/components/dashboard/statistics-cards";
+import { SystemStatusCard } from "@/components/dashboard/system-status-card";
+import { DashboardSkeleton } from "@/components/dashboard/dashboard-skeleton";
+import { ErrorState } from "@/components/common/error-state";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { healthService } from "@/services/health.service";
+import { extractApiError } from "@/lib/api/client";
+import { dashboardService } from "@/services/dashboard.service";
 import { useAuth } from "@/providers/auth-provider";
 
 const PIPELINE = [
@@ -62,17 +65,40 @@ function SpecRow({ label, value }: { label: string; value: string }) {
 
 export default function DashboardPage() {
   const { user } = useAuth();
-  const { data: health, isPending, isError } = useQuery({
-    queryKey: ["health"],
-    queryFn: healthService.getHealth,
+  const { data, isPending, isError, error, refetch } = useQuery({
+    queryKey: ["dashboard"],
+    queryFn: dashboardService.get,
     refetchInterval: 30_000,
     retry: false,
   });
 
-  const apiState: SystemState = isPending ? "connecting" : isError ? "offline" : "online";
-  const dbUp = health?.database === "connected";
-  const modelReady = health?.model === "loaded";
+  if (isError) {
+    const apiError = extractApiError(error);
+    return (
+      <div className="ambient-canvas min-h-full">
+        <div className="mx-auto w-full max-w-7xl px-6 py-10">
+          <ErrorState
+            title="Couldn't load dashboard"
+            message={apiError.message}
+            detail={apiError.detail}
+            onRetry={() => refetch()}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  if (isPending) {
+    return (
+      <div className="ambient-canvas min-h-full">
+        <DashboardSkeleton />
+      </div>
+    );
+  }
+
   const firstName = (user?.full_name ?? user?.username ?? "").split(" ")[0];
+  const model = data.model;
+  const modelReady = model.loaded;
 
   return (
     <div className="ambient-canvas min-h-full">
@@ -102,11 +128,22 @@ export default function DashboardPage() {
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link href="/performance">
-                Model metrics <ArrowRight />
+              <Link href="/insights">
+                Model insights <ArrowRight />
               </Link>
             </Button>
           </div>
+        </section>
+
+        {/* --------------------- Statistics --------------------- */}
+        <section>
+          <StatisticsCards statistics={data.statistics} />
+        </section>
+
+        {/* --------------- Recent studies + System --------------- */}
+        <section className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+          <RecentStudiesCard studies={data.recent_studies} />
+          <SystemStatusCard system={data.system} />
         </section>
 
         {/* ---------------------- Pipeline ---------------------- */}
@@ -136,16 +173,14 @@ export default function DashboardPage() {
                   <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{body}</p>
                 </CardContent>
 
-                {/* hairline that lights up on hover */}
                 <div className="hairline absolute inset-x-0 bottom-0 h-px opacity-0 transition-opacity group-hover:opacity-100" />
               </Card>
             ))}
           </div>
         </section>
 
-        {/* ------------------ Engine + System ------------------ */}
-        <section className="grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-          {/* Engine */}
+        {/* ---------------------- Engine ---------------------- */}
+        <section>
           <Card className="overflow-hidden">
             <div className="hairline h-px w-full" />
             <CardContent className="p-6">
@@ -157,82 +192,34 @@ export default function DashboardPage() {
                   <div>
                     <h3 className="text-sm font-semibold tracking-tight">Inference engine</h3>
                     <p className="text-xs text-muted-foreground">
-                      {health?.model_info?.name ?? "ThoraxVision-DenseNet121"}
+                      {model.name ?? "ThoraxVision-DenseNet121"}
                     </p>
                   </div>
                 </div>
 
                 <Badge variant={modelReady ? "ai" : "neutral"}>
-                  {modelReady ? "Ready" : apiState === "offline" ? "Unreachable" : "Standby"}
+                  {modelReady ? "Ready" : "Standby"}
                 </Badge>
               </div>
 
               <div className="mt-6 grid gap-x-8 sm:grid-cols-2">
                 <div>
-                  <SpecRow label="Architecture" value="DenseNet121" />
-                  <SpecRow label="Framework" value={health?.model_info?.framework ?? "PyTorch"} />
-                  <SpecRow label="Version" value={`v${health?.model_info?.version ?? "—"}`} />
+                  <SpecRow label="Architecture" value={model.architecture ?? "—"} />
+                  <SpecRow label="Framework" value={model.framework ?? "—"} />
+                  <SpecRow label="Version" value={model.version ? `v${model.version}` : "—"} />
                 </div>
                 <div>
-                  <SpecRow label="Input" value="224 × 224 RGB" />
-                  <SpecRow label="Classes" value="TB / Non-TB" />
-                  <SpecRow label="Explainability" value="Grad-CAM" />
+                  <SpecRow
+                    label="Input"
+                    value={model.input_size ? `${model.input_size} × ${model.input_size}` : "—"}
+                  />
+                  <SpecRow
+                    label="Classes"
+                    value={model.classes && model.classes.length > 0 ? model.classes.join(" / ") : "—"}
+                  />
+                  <SpecRow label="Device" value={model.device ?? "—"} />
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* System */}
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-2">
-                <Target className="h-4 w-4 text-muted-foreground" />
-                <h3 className="text-sm font-semibold tracking-tight">System</h3>
-              </div>
-
-              <div className="mt-5 space-y-3">
-                {[
-                  {
-                    icon: Server,
-                    label: "Inference API",
-                    value: apiState === "online" ? "Online" : apiState === "connecting" ? "Connecting" : "Offline",
-                    state: apiState,
-                  },
-                  {
-                    icon: Database,
-                    label: "Database",
-                    value: apiState !== "online" ? "—" : dbUp ? "Connected" : "Disconnected",
-                    state: (apiState !== "online" ? "connecting" : dbUp ? "online" : "offline") as SystemState,
-                  },
-                  {
-                    icon: Layers,
-                    label: "Model weights",
-                    value: apiState !== "online" ? "—" : modelReady ? "Loaded" : "Standby",
-                    state: (apiState !== "online" ? "connecting" : modelReady ? "online" : "connecting") as SystemState,
-                  },
-                ].map(({ icon: Icon, label, value, state }) => (
-                  <div
-                    key={label}
-                    className="flex items-center gap-3 rounded-xl border border-border/60 bg-background/40 px-3.5 py-2.5"
-                  >
-                    <Icon className="h-4 w-4 shrink-0 text-muted-foreground" />
-                    <span className="flex-1 text-xs">{label}</span>
-                    <span
-                      className={cn(
-                        "numeric font-mono text-xs font-medium",
-                        state === "offline" && "text-destructive",
-                      )}
-                    >
-                      {value}
-                    </span>
-                    <StatusDot state={state} />
-                  </div>
-                ))}
-              </div>
-
-              <p className="mt-4 text-[11px] leading-relaxed text-muted-foreground">
-                Status refreshes automatically every 30 seconds.
-              </p>
             </CardContent>
           </Card>
         </section>

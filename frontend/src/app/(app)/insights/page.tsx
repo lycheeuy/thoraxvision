@@ -1,41 +1,28 @@
 "use client";
 
 /**
- * Model Insights — an AI research dashboard explaining the model behind
- * ThoraxVision, aimed at thesis examiners.
+ * Model Insights — research dashboard explaining the AI model, for examiners.
  *
- * Consumes ONLY GET /api/v1/model-insights. Each section renders from its
- * slice of the response and uses the `artifacts` availability map to decide
- * whether to show content or an "unavailable" state. No research values are
- * hardcoded — everything comes from the endpoint.
+ * Consumes only GET /api/v1/model-insights via modelInsightsService. Each
+ * section renders from its slice of the response; the `artifacts` map decides
+ * which figures are available. No data is transformed beyond the mapping
+ * needed to feed presentational components, and no values are hardcoded.
  */
 import { useQuery } from "@tanstack/react-query";
-import {
-  Activity,
-  BarChart3,
-  Brain,
-  FlaskConical,
-  Grid3x3,
-  LineChart,
-  ScanEye,
-  Settings2,
-  Table2,
-} from "lucide-react";
 
+import { ClassificationReportTable } from "@/components/performance/classification-report-table";
+import { GradcamExample } from "@/components/performance/gradcam-example";
+import { InsightsHero } from "@/components/performance/insights-hero";
+import { MetricFigure } from "@/components/performance/metric-figure";
+import { ModelOverview } from "@/components/performance/model-overview";
+import { PerformanceMetrics } from "@/components/performance/performance-metrics";
+import { ResearchSummary } from "@/components/performance/research-summary";
+import { ResearchDisclaimer } from "@/components/prediction/research-disclaimer";
 import { AnalysisSkeleton } from "@/components/common/loading";
 import { ErrorState } from "@/components/common/error-state";
-import { ClassificationReportTable } from "@/components/insights/classification-report-table";
-import { GradcamExample } from "@/components/insights/gradcam-example";
-import { GwoPanel } from "@/components/insights/gwo-panel";
-import { InsightsHero } from "@/components/insights/insights-hero";
-import { InsightsSection } from "@/components/insights/insights-section";
-import { MetricFigure } from "@/components/insights/metric-figure";
-import { ModelOverviewPanel } from "@/components/insights/model-overview";
-import { PerformanceMetricsPanel } from "@/components/insights/performance-metrics";
-import { ResearchSummaryPanel } from "@/components/insights/research-summary";
-import { ResearchDisclaimer } from "@/components/prediction/research-disclaimer";
 import { extractApiError } from "@/lib/api/client";
 import { modelInsightsService } from "@/services/model-insights.service";
+import type { ClassificationRow } from "@/lib/api/types";
 
 export default function InsightsPage() {
   const { data, isPending, isError, error, refetch } = useQuery({
@@ -45,13 +32,14 @@ export default function InsightsPage() {
   });
 
   if (isError) {
+    const apiError = extractApiError(error);
     return (
       <div className="ambient-canvas min-h-full">
         <div className="mx-auto w-full max-w-[1100px] px-6 py-8">
           <ErrorState
             title="Couldn't load model insights"
-            message={extractApiError(error).message}
-            detail={extractApiError(error).detail}
+            message={apiError.message}
+            detail={apiError.detail}
             onRetry={() => refetch()}
           />
         </div>
@@ -69,118 +57,88 @@ export default function InsightsPage() {
     );
   }
 
-  const a = data.artifacts;
+  const { overview, metrics, classification_report, research_summary, artifacts } = data;
   const abs = modelInsightsService.toAbsoluteUrl;
 
   return (
     <div className="ambient-canvas min-h-full">
-      <div className="mx-auto w-full max-w-[1100px] space-y-12 px-6 py-8">
-        {/* Hero */}
-        <InsightsHero overview={data.overview} />
+      <div className="mx-auto w-full max-w-[1100px] space-y-8 px-6 py-8">
+        {/* 1. Hero */}
+        <InsightsHero
+          modelName={overview.name}
+          architecture={overview.architecture}
+          version={overview.version}
+        />
 
-        {/* Model Overview */}
-        <InsightsSection title="Model overview" icon={Brain} description="Architecture and configuration">
-          <ModelOverviewPanel overview={data.overview} />
-        </InsightsSection>
+        {/* 2. Model overview */}
+        <ModelOverview
+          name={overview.name}
+          architecture={overview.architecture}
+          framework={overview.framework}
+          version={overview.version}
+          threshold={overview.threshold}
+          inputSize={overview.input_size}
+          classes={overview.classes}
+          device={null}
+        />
 
-        {/* Performance Metrics */}
-        <InsightsSection
-          title="Performance metrics"
-          icon={Activity}
-          description="Headline evaluation figures"
-          available={data.metrics != null}
-          unavailableHint="Metrics are unavailable — the classification report hasn't been added yet."
-        >
-          {data.metrics && <PerformanceMetricsPanel metrics={data.metrics} />}
-        </InsightsSection>
+        {/* 3. Performance metrics */}
+        {metrics && (
+          <PerformanceMetrics
+            accuracy={metrics.accuracy ?? 0}
+            precision={metrics.precision ?? 0}
+            recall={metrics.recall ?? 0}
+            f1Score={metrics.f1_score ?? 0}
+          />
+        )}
 
-        {/* Classification Report */}
-        <InsightsSection
-          title="Classification report"
-          icon={Table2}
-          description="Per-class precision, recall and F1"
-          available={data.classification_report != null}
-          unavailableHint="The classification report artifact hasn't been added yet."
-        >
-          {data.classification_report && (
-            <ClassificationReportTable report={data.classification_report} />
-          )}
-        </InsightsSection>
+        {/* 4. Classification report */}
+        {classification_report && (
+          <ClassificationReportTable
+            rows={classification_report.per_class.map((row: ClassificationRow) => ({
+              label: row.label,
+              precision: row.precision ?? 0,
+              recall: row.recall ?? 0,
+              f1_score: row.f1_score ?? 0,
+              support: row.support ?? 0,
+            }))}
+          />
+        )}
 
-        {/* Confusion Matrix */}
-        <InsightsSection
-          title="Confusion matrix"
-          icon={Grid3x3}
-          available={a.confusion_matrix.available}
-          unavailableHint="The confusion matrix figure hasn't been added yet."
-        >
+        {/* 5. Confusion matrix */}
+        {artifacts.confusion_matrix.available && (
           <MetricFigure
-            title="Confusion matrix"
+            title="Confusion Matrix"
             imageUrl={abs(data.confusion_matrix_url)}
-            description="Predicted vs. actual across the two classes."
+            caption="Predicted versus actual labels across the two classes."
           />
-        </InsightsSection>
+        )}
 
-        {/* ROC Curve */}
-        <InsightsSection
-          title="ROC curve"
-          icon={LineChart}
-          available={a.roc_curve.available}
-          unavailableHint="The ROC curve figure hasn't been added yet."
-        >
+        {/* 6. ROC curve */}
+        {artifacts.roc_curve.available && (
           <MetricFigure
-            title="ROC curve"
+            title="ROC Curve"
             imageUrl={abs(data.roc_curve_url)}
-            description="True-positive rate against false-positive rate."
+            caption="True-positive rate against false-positive rate."
           />
-        </InsightsSection>
+        )}
 
-        {/* Training Curves */}
-        <InsightsSection
-          title="Training curves"
-          icon={BarChart3}
-          available={a.training_curves.available}
-          unavailableHint="Training curves haven't been added yet."
-        >
+        {/* 7. Training curves */}
+        {artifacts.training_curves.available && (
           <MetricFigure
-            title="Training curves"
+            title="Training Curves"
             imageUrl={abs(data.training_curves_url)}
-            description="Loss and accuracy across training epochs."
+            caption="Loss and accuracy across training epochs."
           />
-        </InsightsSection>
+        )}
 
-        {/* GradCAM Example */}
-        <InsightsSection
-          title="Grad-CAM example"
-          icon={ScanEye}
-          available={a.gradcam_example.available}
-          unavailableHint="No Grad-CAM example image has been added yet."
-        >
-          <GradcamExample imageUrl={abs(data.gradcam_example_url)} />
-        </InsightsSection>
+        {/* 8. Grad-CAM example */}
+        <GradcamExample imageUrl={abs(data.gradcam_example_url)} />
 
-        {/* Optimization (GWO) */}
-        <InsightsSection
-          title="Optimization — Grey Wolf Optimizer"
-          icon={Settings2}
-          description="Hyperparameter optimization details"
-          available={data.gwo != null}
-          unavailableHint="No GWO optimization log has been added yet."
-        >
-          {data.gwo && <GwoPanel gwo={data.gwo} />}
-        </InsightsSection>
+        {/* 9. Research summary */}
+        {research_summary && <ResearchSummary data={research_summary} />}
 
-        {/* Research Summary */}
-        <InsightsSection
-          title="Research summary"
-          icon={FlaskConical}
-          available={data.research_summary != null}
-          unavailableHint="No research summary has been added yet."
-        >
-          {data.research_summary && <ResearchSummaryPanel summary={data.research_summary} />}
-        </InsightsSection>
-
-        {/* Disclaimer */}
+        {/* 10. Disclaimer */}
         <ResearchDisclaimer />
       </div>
     </div>

@@ -1,0 +1,60 @@
+File:
+frontend/src/components/dashboard/dashboard-skeleton.tsx
+
+Task:
+Implement Dashboard loading skeleton.
+
+Requirements:
+
+- Gunakan shadcn/ui Skeleton yang sudah ada.
+- Jangan membuat skeleton custom menggunakan div biasa.
+- Responsive.
+
+Layout harus mengikuti struktur dashboard final:
+
+1. Welcome Hero
+   - skeleton title
+   - skeleton subtitle
+   - skeleton button
+
+2. Statistics Cards
+   - 4 card skeleton
+   - responsive
+     lg:4
+     md:2
+     sm:1
+
+3. Recent Studies
+   - card besar
+   - sekitar 5 row skeleton
+
+4. Right Panel
+   - Model Status card
+   - System Status card
+   - Quick Actions card
+
+Gunakan Card dari shadcn.
+
+Gunakan gap dan spacing yang konsisten dengan desain modern.
+
+Tidak ada business logic.
+
+Tidak ada props.
+
+Component:
+
+DashboardSkeleton
+
+Return JSX saja.
+
+Gunakan TypeScript strict.
+
+Jangan gunakan any.
+
+Jangan mengubah file lain.
+
+Output:
+Berikan isi lengkap file saja.
+Tanpa penjelasan.
+Tanpa analisis.
+Tanpa markdown.
