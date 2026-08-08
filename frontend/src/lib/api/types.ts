@@ -251,3 +251,18 @@ export interface DashboardResponse {
   model: ModelStatus;
   system: SystemStatus;
 }
+
+export interface UpdateUserRequest {
+  full_name?: string | null;
+  email?: string | null;
+}
+
+export interface ChangePasswordRequest {
+  current_password: string;
+  new_password: string;
+}
+
+export interface MessageResponse {
+  success: boolean;
+  message: string;
+}

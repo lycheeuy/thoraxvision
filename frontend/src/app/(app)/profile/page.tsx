@@ -1,32 +1,86 @@
 "use client";
 
 /**
- * Profile — the only placeholder that already shows real data, proving the
- * whole auth chain works end to end (token -> /auth/me -> context).
+ * Profile — view and edit the current user's account.
+ *
+ * Reads the profile from GET /api/v1/users/me and exposes two mutations:
+ * update profile (full_name / email) and change password. Profile edits
+ * invalidate the profile query; password changes do not, since they don't
+ * alter the returned user. All feedback goes through the shared sonner toast.
  */
-import { CalendarClock, Mail, Shield, UserRound } from "lucide-react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
+import { PersonalInformationCard } from "@/components/profile/personal-information-card";
+import { ProfileHeader } from "@/components/profile/profile-header";
+import { SecurityCard } from "@/components/profile/security-card";
 import { PageContainer } from "@/components/layout/page-container";
 import { PageSkeleton } from "@/components/common/loading";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { useAuth } from "@/providers/auth-provider";
+import { ErrorState } from "@/components/common/error-state";
+import { extractApiError } from "@/lib/api/client";
+import { profileService } from "@/services/profile.service";
+import type {
+  ChangePasswordRequest,
+  UpdateUserRequest,
+} from "@/lib/api/types";
 
-function Row({ icon: Icon, label, value }: { icon: typeof Mail; label: string; value: string }) {
-  return (
-    <div className="flex items-center gap-3 py-2">
-      <Icon className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
-      <span className="w-32 text-sm text-muted-foreground">{label}</span>
-      <span className="text-sm font-medium">{value}</span>
-    </div>
-  );
-}
+const PROFILE_QUERY_KEY = ["profile"];
 
 export default function ProfilePage() {
-  const { user } = useAuth();
+  const queryClient = useQueryClient();
 
-  if (!user) {
+  const { data, isPending, isError, error, refetch } = useQuery({
+    queryKey: PROFILE_QUERY_KEY,
+    queryFn: profileService.getProfile,
+    retry: false,
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: (payload: UpdateUserRequest) => profileService.updateProfile(payload),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEY });
+      toast.success("Profile updated");
+    },
+    onError: (err: unknown) => {
+      const apiError = extractApiError(err);
+      toast.error("Couldn't update profile", { description: apiError.message });
+    },
+  });
+
+  const passwordMutation = useMutation({
+    mutationFn: (payload: ChangePasswordRequest) => profileService.changePassword(payload),
+    onSuccess: () => {
+      toast.success("Password changed");
+    },
+    onError: (err: unknown) => {
+      const apiError = extractApiError(err);
+      toast.error("Couldn't change password", { description: apiError.message });
+    },
+  });
+
+  const handleUpdateProfile = async (payload: UpdateUserRequest): Promise<void> => {
+    await updateMutation.mutateAsync(payload);
+  };
+
+  const handleChangePassword = async (payload: ChangePasswordRequest): Promise<void> => {
+    await passwordMutation.mutateAsync(payload);
+  };
+
+  if (isError) {
+    const apiError = extractApiError(error);
+    return (
+      <PageContainer>
+        <ErrorState
+          title="Couldn't load profile"
+          message={apiError.message}
+          detail={apiError.detail}
+          onRetry={() => refetch()}
+        />
+      </PageContainer>
+    );
+  }
+
+  if (isPending) {
     return (
       <PageContainer>
         <PageSkeleton />
@@ -34,37 +88,20 @@ export default function ProfilePage() {
     );
   }
 
-  const initials = (user.full_name ?? user.username)
-    .split(" ")
-    .map((p) => p[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
-
   return (
-    <PageContainer className="max-w-2xl">
-      <Card>
-        <CardHeader className="flex-row items-center gap-4 space-y-0">
-          <Avatar className="h-14 w-14">
-            <AvatarFallback className="text-lg">{initials}</AvatarFallback>
-          </Avatar>
-          <div>
-            <CardTitle>{user.full_name ?? user.username}</CardTitle>
-            <p className="text-sm capitalize text-muted-foreground">{user.role}</p>
-          </div>
-        </CardHeader>
-        <Separator />
-        <CardContent className="pt-4">
-          <Row icon={UserRound} label="Username" value={user.username} />
-          <Row icon={Mail} label="Email" value={user.email} />
-          <Row icon={Shield} label="Role" value={user.role} />
-          <Row
-            icon={CalendarClock}
-            label="Last login"
-            value={user.last_login ? new Date(user.last_login).toLocaleString() : "—"}
-          />
-        </CardContent>
-      </Card>
+    <PageContainer>
+      <div className="mx-auto w-full max-w-[900px] space-y-6">
+        <ProfileHeader user={data} />
+        <PersonalInformationCard
+          user={data}
+          onSave={handleUpdateProfile}
+          saving={updateMutation.isPending}
+        />
+        <SecurityCard
+          onChangePassword={handleChangePassword}
+          saving={passwordMutation.isPending}
+        />
+      </div>
     </PageContainer>
   );
 }
