@@ -5,12 +5,14 @@ User creation is used by the seeder; there is NO public registration.
 """
 from __future__ import annotations
 
+from app.core.exceptions import ConflictError, ValidationError
 from app.core.exceptions import InactiveUserError, InvalidCredentialsError
 from app.core.logger import get_logger
 from app.core.permissions import Role, is_valid_role
 from app.core.security import hash_password, verify_password
 from app.infrastructure.database.models import User
 from app.infrastructure.repositories.user_repository import UserRepository
+from app.domain.schemas.user import UpdateUserRequest
 
 logger = get_logger("users")
 
@@ -65,3 +67,45 @@ class UserService:
         created = self._repo.create(user)
         logger.info("User created: %s (role=%s)", username, role)
         return created
+    
+    def update_profile(self, user: User, data: UpdateUserRequest) -> User:
+        """Update the caller's own profile.
+
+        Only full_name and email are editable here. Email is checked for
+        uniqueness against other users before saving, so a clash returns a
+        clean 409 instead of surfacing a database integrity error.
+        """
+        if data.email is not None and data.email != user.email:
+            existing = self._repo.get_by_email(data.email)
+            if existing is not None and existing.id != user.id:
+                raise ConflictError(
+                    "Email is already in use by another account.",
+                    detail="email_taken",
+                )
+            user.email = data.email
+
+        if data.full_name is not None:
+            user.full_name = data.full_name
+
+        return self._repo.update(user)
+
+    def change_password(
+        self, user: User, current_password: str, new_password: str
+    ) -> None:
+        """Change the caller's password after verifying the current one.
+
+        The new password must differ from the current one. Length rules are
+        enforced by the request schema (min 8).
+        """
+        if not verify_password(current_password, user.hashed_password):
+            raise ValidationError(
+                "Current password is incorrect.",
+                detail="wrong_current_password",
+            )
+        if verify_password(new_password, user.hashed_password):
+            raise ValidationError(
+                "New password must be different from the current password.",
+                detail="password_unchanged",
+            )
+        user.hashed_password = hash_password(new_password)
+        self._repo.update(user)

@@ -26,6 +26,13 @@ class ValidationError(AppError):
 
     error_code = "validation_error"
     status_code = 400
+    
+    
+class ConflictError(AppError):
+    """Requested change conflicts with existing state (e.g. email already taken)."""
+
+    error_code = "conflict"
+    status_code = 409
 
 
 class UnsupportedFileTypeError(AppError):
