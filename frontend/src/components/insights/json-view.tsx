@@ -82,7 +82,7 @@ function NumericArraySummary({ values }: { values: number[] }) {
 
 function ValueView({ value }: { value: unknown }) {
   if (isScalar(value)) {
-    return <span className="numeric font-mono text-sm text-foreground">{formatScalar(value)}</span>;
+    return <span className="numeric break-words font-mono text-sm text-foreground">{formatScalar(value)}</span>;
   }
 
   if (Array.isArray(value)) {
@@ -98,7 +98,7 @@ function ValueView({ value }: { value: unknown }) {
           {value.map((v, i) => (
             <span
               key={i}
-              className="rounded-md bg-muted px-1.5 py-0.5 text-xs text-muted-foreground"
+              className="break-words rounded-md bg-muted px-1.5 py-0.5 text-xs text-muted-foreground"
             >
               {formatScalar(v as string | number | boolean | null)}
             </span>
@@ -147,8 +147,8 @@ export function JsonView({ data }: { data: unknown }) {
                 : "flex items-baseline justify-between gap-4 border-b border-border/40 pb-2 last:border-0",
             )}
           >
-            <dt className="text-xs font-medium text-muted-foreground">{humanize(key)}</dt>
-            <dd className={cn(nested ? "" : "text-right")}>
+            <dt className="shrink-0 text-xs font-medium text-muted-foreground">{humanize(key)}</dt>
+            <dd className={cn("min-w-0", nested ? "" : "text-right")}>
               <ValueView value={value} />
             </dd>
           </div>

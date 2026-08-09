@@ -35,7 +35,7 @@ export default function InsightsPage() {
     const apiError = extractApiError(error);
     return (
       <div className="ambient-canvas min-h-full">
-        <div className="mx-auto w-full max-w-[1100px] px-6 py-8">
+        <div className="mx-auto w-full max-w-[1100px] px-4 py-6 sm:px-6 sm:py-8">
           <ErrorState
             title="Couldn't load model insights"
             message={apiError.message}

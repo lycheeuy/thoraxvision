@@ -36,7 +36,7 @@ export function ConfidenceGauge({
   const offset = circumference - (shown / 100) * circumference;
 
   return (
-    <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
+    <div className="relative inline-flex max-w-full items-center justify-center" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
         <defs>
           <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="100%">

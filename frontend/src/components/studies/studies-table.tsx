@@ -21,8 +21,8 @@ const COLUMNS = [
 
 export function StudiesTable({ items }: { items: HistoryItem[] }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-soft">
-      <table className="w-full border-collapse">
+    <div className="overflow-x-auto rounded-2xl border border-border/70 bg-card shadow-soft">
+      <table className="w-full min-w-[720px] border-collapse">
         <thead>
           <tr className="border-b border-border bg-muted/40">
             {COLUMNS.map((c, i) => (

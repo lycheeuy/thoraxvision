@@ -34,8 +34,8 @@ import { useAuth } from "@/providers/auth-provider";
 const PAGE_SUBTITLE: Record<string, string> = {
   "/dashboard": "Your analysis workspace",
   "/prediction": "Upload a chest X-ray for AI analysis",
-  "/history": "Previously analysed studies",
-  "/performance": "Model evaluation and metrics",
+  "/studies": "Previously analysed studies",
+  "/insights": "Model evaluation and metrics",
   "/profile": "Account details",
 };
 

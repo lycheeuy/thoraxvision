@@ -20,12 +20,12 @@ function Row({
   value: string;
 }) {
   return (
-    <div className="flex items-center justify-between border-b border-border/50 py-2.5 last:border-0">
-      <span className="flex items-center gap-2 text-xs text-muted-foreground">
+    <div className="flex items-center justify-between gap-3 border-b border-border/50 py-2.5 last:border-0">
+      <span className="flex shrink-0 items-center gap-2 text-xs text-muted-foreground">
         <Icon className="h-3.5 w-3.5" />
         {label}
       </span>
-      <span className="numeric font-mono text-xs font-medium">{value}</span>
+      <span className="numeric truncate text-right font-mono text-xs font-medium">{value}</span>
     </div>
   );
 }

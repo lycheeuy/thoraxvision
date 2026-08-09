@@ -51,7 +51,7 @@ export default function StudiesPage() {
 
   return (
     <div className="ambient-canvas min-h-full">
-      <div className="mx-auto w-full max-w-[1200px] px-6 py-8">
+      <div className="mx-auto w-full max-w-[1200px] px-4 py-6 sm:px-6 sm:py-8">
         {/* Header */}
         <div className="flex items-center gap-3 border-b border-border/60 pb-6">
           <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-ai shadow-glow">

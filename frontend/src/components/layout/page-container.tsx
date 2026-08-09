@@ -15,7 +15,7 @@ export function PageContainer({
 }) {
   return (
     <div className="ambient-canvas min-h-full">
-      <div className={cn("mx-auto w-full max-w-7xl px-6 py-10", className)}>{children}</div>
+      <div className={cn("mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-10", className)}>{children}</div>
     </div>
   );
 }
