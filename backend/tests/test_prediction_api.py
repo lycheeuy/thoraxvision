@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 import pytest
 from fastapi.testclient import TestClient
 
-from app.api.deps import get_db, get_inference_engine
+from app.api.deps import get_db, get_inference_engine, get_current_active_user
 from app.main import app
 from tests.test_prediction_service import FakeEngine, FakeRow
 
@@ -20,7 +20,10 @@ class FakeSession:
 
     def close(self) -> None: ...
 
-
+class _FakeUser:
+    """Minimal authenticated user; /predict only reads .id."""
+    id = 1
+    
 @pytest.fixture
 def client(monkeypatch: pytest.MonkeyPatch) -> TestClient:
     # Repository writes nowhere; storage writes to the real uploads/ dir (tmp-safe).
@@ -35,6 +38,7 @@ def client(monkeypatch: pytest.MonkeyPatch) -> TestClient:
 
     app.dependency_overrides[get_inference_engine] = lambda: FakeEngine()
     app.dependency_overrides[get_db] = lambda: FakeSession()
+    app.dependency_overrides[get_current_active_user] = lambda: _FakeUser()
     with TestClient(app) as c:
         yield c
     app.dependency_overrides.clear()
