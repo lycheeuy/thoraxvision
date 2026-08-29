@@ -22,6 +22,7 @@ npm-debug.log*
 
 # ---- ML artifacts & runtime data ----
 backend/ml_models/*.pth
+!backend/ml_models/densenet121_tb.pth
 backend/uploads/*
 backend/outputs/gradcam/*
 backend/reports/*
