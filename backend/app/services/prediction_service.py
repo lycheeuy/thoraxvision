@@ -5,6 +5,7 @@ The service orchestrates: validate -> decode -> infer -> Grad-CAM ->
 store files -> persist row -> build response. It never imports FastAPI.
 """
 from __future__ import annotations
+import threading
 
 from app.ai.exceptions import (
     AIEngineError,
@@ -26,6 +27,7 @@ from app.infrastructure.storage.image_processor import ImageProcessor
 from app.infrastructure.storage.storage_service import StorageService
 
 logger = get_logger("prediction")
+_inference_lock = threading.Lock()
 
 
 class PredictionService:
@@ -63,8 +65,9 @@ class PredictionService:
 
         # 4-5. AI Engine (Phase 3) — inference + Grad-CAM
         try:
-            result = self._engine.predict(image)
-            gradcam_image = self._engine.generate_gradcam(image)
+            with _inference_lock:
+                result = self._engine.predict(image)
+                gradcam_image = self._engine.generate_gradcam(image)
         except (ModelFileNotFoundError, MetadataNotFoundError, ModelLoadError) as exc:
             logger.error("Prediction failed — model unavailable: %s", exc)
             raise ModelUnavailableError(

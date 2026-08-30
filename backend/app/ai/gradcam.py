@@ -37,10 +37,10 @@ class GradCAMEngine:
     ) -> Image.Image:
         """Return heatmap overlay as PIL.Image (target defaults to TB=1)."""
         try:
-            cam = GradCAM(model=self._model, target_layers=self._target_layers)
-            targets = [ClassifierOutputTarget(target_class)]
-            grayscale_cam = cam(input_tensor=input_tensor, targets=targets)[0]
-            overlay = show_cam_on_image(cam_base, grayscale_cam, use_rgb=True)
+            with GradCAM(model=self._model, target_layers=self._target_layers) as cam:
+                targets = [ClassifierOutputTarget(target_class)]
+                grayscale_cam = cam(input_tensor=input_tensor, targets=targets)[0]
+                overlay = show_cam_on_image(cam_base, grayscale_cam, use_rgb=True)
             return Image.fromarray(overlay)
         except Exception as exc:  # noqa: BLE001
             raise InferenceError(f"Grad-CAM failed: {exc}") from exc

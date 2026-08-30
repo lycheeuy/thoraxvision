@@ -45,7 +45,7 @@ class InferenceEngine:
         start = time.perf_counter()
         try:
             tensor = b.preprocessor.to_tensor(image).to(b.device)
-            with torch.no_grad():
+            with torch.inference_mode():
                 logits = b.model(tensor)
                 probs = F.softmax(logits, dim=1)[0]
         except InvalidImageError:
