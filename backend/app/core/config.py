@@ -6,7 +6,7 @@ routes, services, or storage.
 """
 from functools import lru_cache
 from pathlib import Path
-
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Absolute path to backend/ — makes every relative path below CWD-independent.
@@ -58,11 +58,38 @@ class Settings(BaseSettings):
 
     # ---------- Logging ----------
     LOG_LEVEL: str = "INFO"
-    
+
     # Model research artifacts (Phase 9) — read-only.
     MODEL_ARTIFACTS_DIR: str = "ml_models/artifacts"
     MODEL_ARTIFACTS_URL_PREFIX: str = "/static/model-artifacts"
-    
+
+    @model_validator(mode="after")
+    def validate_production_config(self) -> "Settings":
+        """Reject unsafe development defaults in production."""
+        if self.APP_ENV.lower() != "production":
+            return self
+
+        if self.JWT_SECRET_KEY == "CHANGE_ME_dev_only_do_not_use_in_production":
+            raise ValueError(
+                "JWT_SECRET_KEY must be changed when APP_ENV=production."
+            )
+
+        if not self.DATABASE_URL:
+            raise ValueError(
+                "DATABASE_URL must be configured when APP_ENV=production."
+            )
+
+        if any(
+            "localhost" in origin or "127.0.0.1" in origin
+            for origin in self.cors_origins
+        ):
+            raise ValueError(
+                "BACKEND_CORS_ORIGINS must not contain localhost/127.0.0.1 "
+                "when APP_ENV=production."
+            )
+
+        return self
+
     # ---------- Derived values ----------
     @property
     def cors_origins(self) -> list[str]:
@@ -103,7 +130,7 @@ class Settings(BaseSettings):
     @property
     def upload_root(self) -> Path:
         return BACKEND_DIR / self.UPLOAD_DIR
-    
+
     @property
     def model_artifacts_root(self) -> Path:
         p = Path(self.MODEL_ARTIFACTS_DIR)
