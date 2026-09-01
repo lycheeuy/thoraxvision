@@ -1,0 +1,41 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Testing / development
+.pytest_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+.next/
+out/
+npm-debug.log*
+
+# Runtime data
+uploads/*
+!uploads/.gitkeep
+
+reports/*
+!reports/.gitkeep
+
+# Local files
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Documentation / temporary files
+openapi-output.txt
