@@ -181,7 +181,7 @@ export function Sidebar() {
           <Logo collapsed={collapsed} showTagline />
         </div>
 
-        <div className="flex-1 overflow-y-auto py-3">
+        <div className="flex-1 min-h-0 overflow-y-auto py-3">
           <SidebarNav collapsed={collapsed} />
         </div>
 
@@ -203,6 +203,17 @@ export function Sidebar() {
             {collapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
           </Button>
         </div>
+
+        {!collapsed && (
+          <div className="border-t border-border/60 px-4 py-2.5">
+            <p className="truncate text-[10px] leading-tight text-muted-foreground/60">
+              Built by{" "}
+              <span className="font-medium text-muted-foreground">
+                Nashiruddin Alif Alvareezi
+              </span>
+            </p>
+          </div>
+        )}
       </aside>
     </TooltipProvider>
   );
