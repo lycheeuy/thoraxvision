@@ -1,0 +1,43 @@
+# ---- Dependencies (deps stage runs `npm ci` from the lockfile) ----
+node_modules/
+
+# ---- Build output (builder stage builds fresh) ----
+.next/
+out/
+
+# ---- Environment & secrets (never copy into image; NEXT_PUBLIC_API_URL comes via ARG) ----
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+.env.test
+
+# ---- Git ----
+.git/
+.gitignore
+.gitattributes
+
+# ---- Logs ----
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- Caches & build info ----
+tsconfig.tsbuildinfo
+.pytest_cache/
+coverage/
+.nyc_output/
+.eslintcache
+
+# ---- IDE / OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---- Docker files themselves ----
+Dockerfile
+.dockerignore
