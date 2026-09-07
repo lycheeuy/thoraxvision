@@ -31,6 +31,25 @@ def client(monkeypatch: pytest.MonkeyPatch) -> TestClient:
 
     def fake_create_prediction(self, **kwargs):  # noqa: ANN001
         return FakeRow()
+    # Storage now targets Supabase; stub it so the API test doesn't need
+    # real credentials/network. We only verify the endpoint wires storage
+    # URLs into the response — Supabase itself is covered in
+    # test_supabase_storage.py.
+    from app.infrastructure.storage import storage_service as storage_mod
+    from app.infrastructure.storage.storage_service import StoredImages
+
+    def fake_save(self, original, gradcam, thumbnail):
+        return StoredImages(
+            original_path="original/x.png",
+            gradcam_path="gradcam/x.png",
+            thumbnail_path="thumbnails/x.png",
+            original_url="https://storage.example/original/x.png",
+            gradcam_url="https://storage.example/gradcam/x.png",
+            thumbnail_url="https://storage.example/thumbnails/x.png",
+        )
+    monkeypatch.setattr(
+        storage_mod.StorageService, "save_prediction_images", fake_save
+    )
 
     monkeypatch.setattr(
         repo_mod.PredictionRepository, "create_prediction", fake_create_prediction
@@ -55,7 +74,7 @@ def test_predict_success(client: TestClient, png_bytes: bytes) -> None:
     assert body["confidence"] == 98.52
     assert body["probabilities"]["Non Tuberculosis"] == 1.48
     assert body["prediction_id"] == 42
-    assert body["gradcam_url"].startswith("/static/uploads/gradcam/")
+    assert body["gradcam_url"] == "https://storage.example/gradcam/x.png"
     assert body["model_info"]["version"] == "1.0.0"
 
 

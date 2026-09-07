@@ -1,16 +1,3 @@
-"""History service — owner-scoped read model over predictions.
-
-Turns stored prediction rows into the API's history shapes. Three jobs the
-repository deliberately doesn't do:
-
-  * pagination maths (total_pages from total + limit),
-  * turning a stored *disk path* into a public *static URL*, and
-  * presenting confidence as a 0–100 percentage (it is stored 0–1) and
-    reconstructing the two-class probability split from it.
-
-Nothing here loads a model or touches inference; it only reshapes rows the
-prediction pipeline already wrote.
-"""
 from __future__ import annotations
 
 import os
@@ -18,6 +5,7 @@ import os
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.core.logger import get_logger
 from app.domain.schemas.history import (
     HistoryDetailResponse,
     HistoryItem,
@@ -29,26 +17,52 @@ from app.infrastructure.repositories.prediction_repository import PredictionRepo
 
 # Hard ceiling on page size, enforced here as well as at the API boundary so
 # the service is safe no matter who calls it.
+logger = get_logger("history")
 MAX_LIMIT = 100
 
 
-def _path_to_url(stored_path: str | None) -> str | None:
-    """Map a stored disk path to its public static URL.
+from app.infrastructure.storage.supabase_storage import (
+    StorageBackendError,
+    SupabaseStorage,
+)
 
-    Storage writes an absolute disk path to the DB (e.g.
-    /app/uploads/original/abc.png) and serves the same files under
-    STATIC_URL_PREFIX. We rebuild the URL from the last two path segments —
-    <subdir>/<filename> — which is exactly how the URL was formed originally,
-    and is robust to the disk root differing between machines.
-    """
-    if not stored_path:
-        return None
+_SUPABASE_PREFIXES = (
+    f"{settings.ORIGINAL_SUBDIR}/",
+    f"{settings.GRADCAM_SUBDIR}/",
+    f"{settings.THUMBNAIL_SUBDIR}/",
+)
+
+
+def _is_supabase_key(stored_path: str) -> bool:
+    """New records store 'original/<uuid>.png' etc.; legacy store 'uploads/...'
+    or an absolute path. Deterministic by prefix — never queries Supabase."""
+    return stored_path.replace("\\", "/").startswith(_SUPABASE_PREFIXES)
+
+
+def _legacy_static_url(stored_path: str) -> str | None:
     normalized = stored_path.replace("\\", "/")
     filename = os.path.basename(normalized)
-    parent = os.path.basename(os.path.dirname(normalized))  # subdir
+    parent = os.path.basename(os.path.dirname(normalized))
     if not filename:
         return None
     return f"{settings.STATIC_URL_PREFIX}/{parent}/{filename}"
+
+
+def _path_to_url(stored_path: str | None) -> str | None:
+    """New Supabase object key -> signed URL; legacy local path -> static URL.
+    Never crashes: a signing failure yields None so history/detail stays up."""
+    if not stored_path:
+        return None
+    if _is_supabase_key(stored_path):
+        try:
+            return SupabaseStorage().create_signed_url(stored_path)
+        except StorageBackendError:
+            logger.warning("Signed URL failed for object key; returning None")
+            return None
+        except Exception:  # defensive: never crash the endpoint
+            logger.warning("Unexpected signing error; returning None")
+            return None
+    return _legacy_static_url(stored_path)
 
 
 def _to_percent(confidence: float) -> float:

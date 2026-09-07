@@ -148,6 +148,11 @@ class Settings(BaseSettings):
     def thumbnail_dir(self) -> Path:
         return self.upload_root / self.THUMBNAIL_SUBDIR
 
+    # ---------- Supabase Storage (Phase 11.2B) ----------
+    SUPABASE_URL: str = ""
+    SUPABASE_SERVICE_KEY: str = ""
+    SUPABASE_STORAGE_BUCKET: str = "thoraxvision"
+    SUPABASE_SIGNED_URL_EXPIRE_SECONDS: int = 3600
 
 @lru_cache
 def get_settings() -> Settings:
