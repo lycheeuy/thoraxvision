@@ -1,6 +1,6 @@
 services:
   backend:
-    image: thoraxvision-backend:phase-11.3c
+    image: thoraxvision-backend:phase-11.3d
     container_name: thoraxvision-backend
     env_file:
       - ./backend/.env
